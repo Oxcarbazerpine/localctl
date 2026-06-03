@@ -2,6 +2,10 @@
 name = "localctl"
 version = "0.1.0"
 description = "CLI for managing local Node.js / Python apps without a daemon"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Feng" }]
 requires-python = ">=3.10"
 dependencies = [
     "click>=8.1",
