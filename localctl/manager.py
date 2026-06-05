@@ -325,7 +325,13 @@ def start(app: AppSpec) -> StartResult:
 
     creationflags = 0
     if sys.platform == "win32":
-        creationflags = 0x00000008 | 0x00000200
+        # CREATE_NO_WINDOW (0x08000000): if any process in the chain calls
+        #   AllocConsole(), the new console is invisible. Stronger than
+        #   DETACHED_PROCESS, which `node.exe` sometimes circumvents by
+        #   explicitly allocating its own (visible) console.
+        # CREATE_NEW_PROCESS_GROUP (0x00000200): isolate so closing the parent
+        #   shell doesn't deliver CTRL+C to the child.
+        creationflags = 0x08000000 | 0x00000200
 
     popen_kwargs: dict = dict(
         cwd=str(cwd),
